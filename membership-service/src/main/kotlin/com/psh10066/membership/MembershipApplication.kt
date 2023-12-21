@@ -1,11 +1,11 @@
-package com.psh10066.kotlinpay
+package com.psh10066.membership
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class KotlinpayApplication
+class MembershipApplication
 
 fun main(args: Array<String>) {
-    runApplication<KotlinpayApplication>(*args)
+    runApplication<MembershipApplication>(*args)
 }
