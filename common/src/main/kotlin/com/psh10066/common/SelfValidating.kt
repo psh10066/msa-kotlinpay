@@ -1,4 +1,4 @@
-package com.psh10066.membership.common
+package com.psh10066.common
 
 import jakarta.validation.ConstraintViolation
 import jakarta.validation.ConstraintViolationException

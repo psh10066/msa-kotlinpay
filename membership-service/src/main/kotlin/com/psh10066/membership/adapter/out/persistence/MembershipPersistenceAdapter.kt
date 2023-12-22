@@ -1,9 +1,9 @@
 package com.psh10066.membership.adapter.out.persistence
 
+import com.psh10066.common.PersistenceAdapter
 import com.psh10066.membership.application.port.out.FindMembershipPort
 import com.psh10066.membership.application.port.out.ModifyMembershipPort
 import com.psh10066.membership.application.port.out.RegisterMembershipPort
-import com.psh10066.membership.common.PersistenceAdapter
 
 @PersistenceAdapter
 class MembershipPersistenceAdapter(

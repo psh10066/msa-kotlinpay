@@ -1,6 +1,6 @@
 package com.psh10066.membership.application.port.`in`
 
-import com.psh10066.membership.common.SelfValidating
+import com.psh10066.common.SelfValidating
 import jakarta.validation.constraints.NotNull
 
 data class FindMembershipCommand(

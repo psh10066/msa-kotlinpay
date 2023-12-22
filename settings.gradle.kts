@@ -3,3 +3,4 @@ plugins {
 }
 rootProject.name = "kotlinpay"
 include("membership-service")
+include("common")

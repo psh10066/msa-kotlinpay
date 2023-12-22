@@ -7,7 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.20"
 }
 
-group = "com.psh10066.membership"
+group = "com.psh10066.common"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -20,20 +20,9 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-
-    // swagger
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
-
-    runtimeOnly("com.h2database:h2")
-
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-
-    implementation(project(":common"))
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
 tasks.withType<KotlinCompile> {
