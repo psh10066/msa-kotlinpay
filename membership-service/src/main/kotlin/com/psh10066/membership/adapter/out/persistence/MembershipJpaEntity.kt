@@ -13,13 +13,13 @@ class MembershipJpaEntity(
     @field:GeneratedValue
     val membershipId: Long? = null,
 
-    val name: String? = null,
+    var name: String? = null,
 
-    val address: String? = null,
+    var address: String? = null,
 
-    val email: String? = null,
+    var email: String? = null,
 
-    val isValid: Boolean? = null,
+    var isValid: Boolean? = null,
 
-    val isCorp: Boolean? = null
+    var isCorp: Boolean? = null
 )
