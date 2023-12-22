@@ -1,4 +1,4 @@
-package com.fastcampuspay.membership.domain
+package com.psh10066.membership.domain
 
 data class Membership(
     val membershipId: Long?,

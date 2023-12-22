@@ -1,9 +1,9 @@
 package com.psh10066.membership.adapter.`in`.web
 
-import com.fastcampuspay.membership.domain.Membership
 import com.psh10066.common.WebAdapter
 import com.psh10066.membership.application.port.`in`.RegisterMembershipCommand
 import com.psh10066.membership.application.port.`in`.RegisterMembershipUseCase
+import com.psh10066.membership.domain.Membership
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController

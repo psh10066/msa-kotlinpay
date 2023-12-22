@@ -1,6 +1,6 @@
 package com.psh10066.membership.adapter.out.persistence
 
-import com.fastcampuspay.membership.domain.Membership
+import com.psh10066.membership.domain.Membership
 import org.springframework.stereotype.Component
 
 @Component

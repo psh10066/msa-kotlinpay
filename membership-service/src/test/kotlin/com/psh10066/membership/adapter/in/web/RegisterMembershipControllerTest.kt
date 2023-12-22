@@ -1,6 +1,6 @@
 package com.psh10066.membership.adapter.`in`.web
 
-import com.fastcampuspay.membership.domain.Membership
+import com.psh10066.membership.domain.Membership
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
