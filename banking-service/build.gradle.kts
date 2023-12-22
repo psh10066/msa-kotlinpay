@@ -9,7 +9,7 @@ plugins {
     id("com.palantir.docker") version "0.35.0"
 }
 
-group = "com.psh10066.membership"
+group = "com.psh10066.banking"
 version = "1.0.0"
 
 java {
