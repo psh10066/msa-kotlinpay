@@ -1,6 +1,6 @@
 package com.psh10066.membership.application.port.`in`
 
-import com.fastcampuspay.membership.domain.Membership
+import com.psh10066.membership.domain.Membership
 
 interface ModifyMembershipUseCase {
 

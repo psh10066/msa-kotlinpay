@@ -1,11 +1,11 @@
 package com.psh10066.membership.application.service
 
-import com.fastcampuspay.membership.domain.Membership
 import com.psh10066.common.UseCase
 import com.psh10066.membership.adapter.out.persistence.MembershipMapper
 import com.psh10066.membership.application.port.`in`.ModifyMembershipCommand
 import com.psh10066.membership.application.port.`in`.ModifyMembershipUseCase
 import com.psh10066.membership.application.port.out.ModifyMembershipPort
+import com.psh10066.membership.domain.Membership
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
