@@ -5,3 +5,4 @@ rootProject.name = "kotlinpay"
 include("membership-service")
 include("common")
 include("banking-service")
+include("money-service")
