@@ -1,16 +1,13 @@
 package com.psh10066.banking.adapter.out.persistence
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "registered_bank_account")
 class RegisteredBankAccountJpaEntity(
 
     @field:Id
-    @field:GeneratedValue
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val registeredBankAccountId: Long? = null,
 
     var membershipId: Long? = null,
