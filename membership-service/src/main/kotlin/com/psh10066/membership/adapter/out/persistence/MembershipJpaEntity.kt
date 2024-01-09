@@ -1,16 +1,13 @@
 package com.psh10066.membership.adapter.out.persistence
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "membership")
 class MembershipJpaEntity(
 
     @field:Id
-    @field:GeneratedValue
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val membershipId: Long? = null,
 
     var name: String? = null,

@@ -11,7 +11,7 @@ import java.util.*
 class MoneyChangingRequestJpaEntity(
 
     @field:Id
-    @field:GeneratedValue
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     val moneyChangingRequestId: Long? = null,
 
     var targetMembershipId: Long? = null,

@@ -1,9 +1,6 @@
 package com.psh10066.banking.adapter.out.persistence
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import java.util.UUID
 
 @Entity
@@ -11,7 +8,7 @@ import java.util.UUID
 class FirmBankingRequestJpaEntity(
 
     @field:Id
-    @field:GeneratedValue
+    @field:GeneratedValue(strategy = GenerationType.IDENTITY)
     var firmBankingRequestId: Long? = null,
 
     var fromBankName: String? = null,
