@@ -27,5 +27,21 @@ class MoneyChangingRequestJpaEntity(
     @field:Enumerated(value = EnumType.STRING)
     var moneyChangingStatus: MoneyChangingStatus? = null,
 
-    var uuid: UUID? = null
-)
+    var uuid: String? = null
+) {
+    constructor(
+        targetMembershipId: Long?,
+        moneyChangingType: MoneyChangingType?,
+        moneyAmount: Int?,
+        timestamp: LocalDateTime?,
+        moneyChangingStatus: MoneyChangingStatus?,
+        uuid: UUID?
+    ) : this() {
+        this.targetMembershipId = targetMembershipId
+        this.moneyChangingType = moneyChangingType
+        this.moneyAmount = moneyAmount
+        this.timestamp = timestamp
+        this.moneyChangingStatus = moneyChangingStatus
+        this.uuid = uuid?.toString()
+    }
+}
