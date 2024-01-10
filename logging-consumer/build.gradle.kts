@@ -5,10 +5,12 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
     kotlin("jvm") version "1.9.20"
     kotlin("plugin.spring") version "1.9.20"
+
+    id("com.palantir.docker") version "0.35.0"
 }
 
-group = "com.psh10066.common"
-version = "0.0.1-SNAPSHOT"
+group = "com.psh10066.logging-consumer"
+version = "1.0.0"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -20,11 +22,15 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    implementation("org.springframework.boot:spring-boot-starter-aop")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
     implementation("org.springframework.kafka:spring-kafka")
+
+    implementation(project(":common"))
 }
 
 tasks.withType<KotlinCompile> {
@@ -36,4 +42,13 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+docker {
+    name = "${rootProject.name}-${project.name}:${version}" // 이미지 이름
+    setDockerfile(file("../Dockerfile"))
+    files(tasks.bootJar.get().outputs.files)
+    buildArgs(mapOf(
+        "JAR_FILE" to tasks.bootJar.get().outputs.files.singleFile.name
+    ))
 }
