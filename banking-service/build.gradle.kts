@@ -36,6 +36,9 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
+    // objectMapper in kotlin
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16.0")
+
     implementation(project(":common"))
 }
 
