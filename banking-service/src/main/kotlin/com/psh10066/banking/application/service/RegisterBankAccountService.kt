@@ -4,6 +4,7 @@ import com.psh10066.banking.adapter.out.external.bank.GetBankAccountRequest
 import com.psh10066.banking.adapter.out.persistence.RegisteredBankAccountMapper
 import com.psh10066.banking.application.port.`in`.RegisterBankAccountCommand
 import com.psh10066.banking.application.port.`in`.RegisterBankAccountUseCase
+import com.psh10066.banking.application.port.out.GetMembershipPort
 import com.psh10066.banking.application.port.out.RegisterBankAccountPort
 import com.psh10066.banking.application.port.out.RequestBankAccountInfoPort
 import com.psh10066.banking.domain.RegisteredBankAccount
@@ -13,11 +14,16 @@ import org.springframework.transaction.annotation.Transactional
 @UseCase
 @Transactional
 class RegisterBankAccountService(
+    private val getMembershipPort: GetMembershipPort,
     private val registerMembershipPort: RegisterBankAccountPort,
     private val requestBankAccountInfoPort: RequestBankAccountInfoPort,
     private val bankAccountMapper: RegisteredBankAccountMapper
 ) : RegisterBankAccountUseCase {
     override fun registerBankAccount(command: RegisterBankAccountCommand): RegisteredBankAccount {
+
+        getMembershipPort.getMembership(membershipId = command.membershipId).also {
+            if (it?.isValid != true) throw RuntimeException("인증되지 않은 회원입니다.")
+        }
 
         val accountInfo = requestBankAccountInfoPort.getBankAccountInfo(
             GetBankAccountRequest(
