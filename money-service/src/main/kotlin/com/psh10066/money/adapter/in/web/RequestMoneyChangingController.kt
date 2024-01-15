@@ -31,4 +31,23 @@ class RequestMoneyChangingController(
                 )
             }
     }
+
+    @PostMapping(path = ["/money/increase-async"])
+    fun increaseMoneyChangingRequestAsync(@RequestBody request: IncreaseMoneyChangingRequest): MoneyChangingResultDetail {
+
+        val command = IncreaseMoneyRequestCommand(
+            targetMembershipId = request.targetMembershipId,
+            amount = request.amount
+        )
+
+        increaseMoneyRequestUseCase.increaseMoneyRequestAsync(command)
+            .also {
+                return MoneyChangingResultDetail(
+                    moneyChangingRequestId = it.moneyChangingRequestId,
+                    moneyChangingType = it.moneyChangingType,
+                    moneyChangingResultStatus = MoneyChangingResultStatus.SUCCEEDED,
+                    amount = it.moneyChangingAmount
+                )
+            }
+    }
 }

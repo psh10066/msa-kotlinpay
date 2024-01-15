@@ -9,7 +9,7 @@ plugins {
     id("com.palantir.docker") version "0.35.0"
 }
 
-group = "com.psh10066.money"
+group = "com.psh10066.task-consumer"
 version = "1.0.0"
 
 java {
@@ -23,16 +23,8 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-
-    // swagger
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
-
-    runtimeOnly("com.mysql:mysql-connector-j")
-    runtimeOnly("com.h2database:h2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
