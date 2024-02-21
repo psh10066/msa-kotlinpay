@@ -17,6 +17,11 @@ data class RequestRemittanceCommand(
     val remittanceType: Int?, // 0: membership (내부 고객), 1: bank (외부 은행 계좌)
 
     @field:NotNull
-    val amount: Int?,
+    val amount: Int?
 
-    ) : SelfValidating<RequestRemittanceCommand>()
+) : SelfValidating<RequestRemittanceCommand>() {
+    init {
+        this.validateSelf()
+    }
+}
+
