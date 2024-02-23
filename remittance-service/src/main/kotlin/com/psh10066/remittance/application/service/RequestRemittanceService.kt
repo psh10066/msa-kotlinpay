@@ -1,6 +1,8 @@
 package com.psh10066.remittance.application.service
 
 import com.psh10066.common.annotation.UseCase
+import com.psh10066.common.exception.CustomException
+import com.psh10066.common.exception.ErrorType
 import com.psh10066.remittance.adapter.out.persistence.RemittanceRequestMapper
 import com.psh10066.remittance.adapter.out.persistence.RemittanceStatus
 import com.psh10066.remittance.application.port.`in`.RemittanceType
@@ -29,7 +31,7 @@ class RequestRemittanceService(
 
         val membershipStatus = membershipPort.getMembershipStatus(command.fromMembershipId!!)
         if (membershipStatus?.isValid != true) {
-            return null
+            throw CustomException(ErrorType.UNAUTHORIZED_MEMBER)
         }
 
         val moneyInfo = moneyPort.getMoneyInfo(command.fromMembershipId)
@@ -37,44 +39,35 @@ class RequestRemittanceService(
             val rechargeAmount = (ceil(command.amount - moneyInfo.balance / 10000.0) * 10000).toInt()
             val moneyResult = moneyPort.requestMoneyRecharging(command.fromMembershipId, rechargeAmount)
             if (!moneyResult) {
-                return null
+                throw CustomException(ErrorType.LACK_ACCOUNT_BALANCE)
             }
         }
 
         when (command.remittanceType) {
             RemittanceType.MEMBERSHIP -> {
-                val remittanceResult1 = moneyPort.requestMoneyDecrease(
+                moneyPort.requestMoneyDecrease(
                     membershipId = command.fromMembershipId,
                     amount = command.amount
                 )
-                val remittanceResult2 = moneyPort.requestMoneyIncrease(
+                moneyPort.requestMoneyIncrease(
                     membershipId = command.toMembershipId,
                     amount = command.amount
                 )
-                if (!remittanceResult1 || !remittanceResult2) {
-                    return null
-                }
             }
 
             RemittanceType.BANK -> {
-                val remittanceRequest = bankingPort.requestFirmBanking(
+                bankingPort.requestFirmBanking(
                     bankName = command.toBankName!!,
                     bankAccountNumber = command.toBankAccountNumber!!,
                     amount = command.amount,
                 )
-                if (!remittanceRequest) {
-                    return null
-                }
             }
 
             else -> TODO()
         }
 
         entity.remittanceStatus = RemittanceStatus.SUCCESS
-        val result = requestRemittancePort.saveRemittanceRequestHistory(entity)
-        if (result) {
-            return remittanceRequestMapper.mapToDomainEntity(entity)
-        }
-        return null
+        requestRemittancePort.saveRemittanceRequestHistory(entity)
+        return remittanceRequestMapper.mapToDomainEntity(entity)
     }
 }

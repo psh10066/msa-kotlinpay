@@ -9,6 +9,8 @@ import com.psh10066.banking.application.port.out.RegisterBankAccountPort
 import com.psh10066.banking.application.port.out.RequestBankAccountInfoPort
 import com.psh10066.banking.domain.RegisteredBankAccount
 import com.psh10066.common.annotation.UseCase
+import com.psh10066.common.exception.CustomException
+import com.psh10066.common.exception.ErrorType
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
@@ -22,7 +24,7 @@ class RegisterBankAccountService(
     override fun registerBankAccount(command: RegisterBankAccountCommand): RegisteredBankAccount {
 
         getMembershipPort.getMembership(membershipId = command.membershipId).also {
-            if (it?.isValid != true) throw RuntimeException("인증되지 않은 회원입니다.")
+            if (it?.isValid != true) throw CustomException(ErrorType.UNAUTHORIZED_MEMBER)
         }
 
         val accountInfo = requestBankAccountInfoPort.getBankAccountInfo(
@@ -33,7 +35,7 @@ class RegisterBankAccountService(
         )
 
         if (!accountInfo.isValid) {
-            throw RuntimeException("등록 가능한 계좌 정보가 아닙니다.")
+            throw CustomException(ErrorType.NOT_VALID_ACCOUNT)
         }
 
         val jpaEntity = registerMembershipPort.createRegisteredBankAccount(
