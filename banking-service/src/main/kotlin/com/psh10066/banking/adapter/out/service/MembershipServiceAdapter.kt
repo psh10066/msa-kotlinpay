@@ -20,12 +20,7 @@ class MembershipServiceAdapter(
 
         val url = "$membershipServiceUrl/membership/$membershipId"
 
-        val jsonResponse: String
-        try {
-            jsonResponse = commonHttpClient.sendGetRequest(url).body()
-        } catch (e: Exception) {
-            return null
-        }
+        val jsonResponse = commonHttpClient.sendGetRequest(url).body()
 
         // json Membership
         val mapper = ObjectMapper().registerKotlinModule()
