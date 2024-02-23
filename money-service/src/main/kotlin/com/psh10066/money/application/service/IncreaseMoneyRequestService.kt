@@ -72,7 +72,7 @@ class IncreaseMoneyRequestService(
             taskName = "Increase Money Task / 머니 충전 Task",
             membershipID = command.targetMembershipId,
             subTaskList = subTaskList,
-            toBankName = "Bank Name",
+            toBankName = BankName.국민은행,
             moneyAmount = command.amount
         )
 

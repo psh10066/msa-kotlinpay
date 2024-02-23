@@ -1,5 +1,6 @@
 package com.psh10066.remittance.application.port.`in`
 
+import com.psh10066.common.BankName
 import com.psh10066.common.SelfValidating
 import jakarta.validation.constraints.NotNull
 
@@ -10,7 +11,7 @@ data class RequestRemittanceCommand(
 
     val toMembershipId: Long?,
 
-    val toBankName: String?,
+    val toBankName: BankName?,
     val toBankAccountNumber: String?,
 
     @field:NotNull

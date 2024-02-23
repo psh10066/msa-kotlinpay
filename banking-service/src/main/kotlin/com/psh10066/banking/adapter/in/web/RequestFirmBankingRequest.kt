@@ -1,10 +1,12 @@
 package com.psh10066.banking.adapter.`in`.web
 
+import com.psh10066.common.BankName
+
 data class RequestFirmBankingRequest(
-    val fromBankName: String,
+    val fromBankName: BankName,
     val fromBankAccountNumber: String,
 
-    val toBankName: String,
+    val toBankName: BankName,
     val toBankAccountNumber: String,
 
     val moneyAmount: Long

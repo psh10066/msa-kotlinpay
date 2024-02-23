@@ -1,6 +1,7 @@
 package com.psh10066.banking.adapter.out.persistence
 
 import com.psh10066.banking.application.port.out.RequestFirmBankingPort
+import com.psh10066.common.BankName
 import com.psh10066.common.PersistenceAdapter
 import java.util.*
 
@@ -9,9 +10,9 @@ class FirmBankingRequestPersistenceAdapter(
     val firmBankingRequestRepository: SpringDataFirmBankingRequestRepository
 ) : RequestFirmBankingPort {
     override fun createFirmBankingRequest(
-        fromBankName: String,
+        fromBankName: BankName,
         fromBankAccountNumber: String,
-        toBankName: String,
+        toBankName: BankName,
         toBankAccountNumber: String,
         moneyAmount: Long,
         firmBankingStatus: FirmBankingStatus

@@ -10,7 +10,7 @@ data class RechargingMoneyTask(
     val subTaskList: List<SubTask>,
 
     // 법인 계좌
-    val toBankName: String,
+    val toBankName: BankName,
 
     // 법인 계좌 번호
     val toBankAccountNumber: String? = null,

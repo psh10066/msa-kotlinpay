@@ -1,6 +1,7 @@
 package com.psh10066.banking.adapter.out.persistence
 
 import com.psh10066.banking.application.port.out.RegisterBankAccountPort
+import com.psh10066.common.BankName
 import com.psh10066.common.PersistenceAdapter
 
 @PersistenceAdapter
@@ -9,7 +10,7 @@ class RegisteredBankAccountPersistenceAdapter(
 ) : RegisterBankAccountPort {
     override fun createRegisteredBankAccount(
         membershipId: Long,
-        bankName: String,
+        bankName: BankName,
         bankAccountNumber: String,
         linkedStatusIsValid: Boolean
     ): RegisteredBankAccountJpaEntity {
