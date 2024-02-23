@@ -8,17 +8,17 @@ import java.util.*
 class FirmBankingRequestMapper {
 
     fun mapToDomainEntity(
-        registeredBankAccountJpaEntity: FirmBankingRequestJpaEntity
+        firmBankingRequestJpaEntity: FirmBankingRequestJpaEntity
     ): FirmBankingRequest {
         return FirmBankingRequest(
-            firmBankingRequestId = registeredBankAccountJpaEntity.firmBankingRequestId,
-            fromBankName = registeredBankAccountJpaEntity.fromBankName,
-            fromBankAccountNumber = registeredBankAccountJpaEntity.fromBankAccountNumber,
-            toBankName = registeredBankAccountJpaEntity.toBankName,
-            toBankAccountNumber = registeredBankAccountJpaEntity.toBankAccountNumber,
-            moneyAmount = registeredBankAccountJpaEntity.moneyAmount,
-            firmBankingStatus = registeredBankAccountJpaEntity.firmBankingStatus,
-            uuid = UUID.fromString(registeredBankAccountJpaEntity.uuid)
+            firmBankingRequestId = firmBankingRequestJpaEntity.firmBankingRequestId,
+            fromBankName = firmBankingRequestJpaEntity.fromBankName,
+            fromBankAccountNumber = firmBankingRequestJpaEntity.fromBankAccountNumber,
+            toBankName = firmBankingRequestJpaEntity.toBankName,
+            toBankAccountNumber = firmBankingRequestJpaEntity.toBankAccountNumber,
+            moneyAmount = firmBankingRequestJpaEntity.moneyAmount,
+            firmBankingStatus = firmBankingRequestJpaEntity.firmBankingStatus,
+            uuid = UUID.fromString(firmBankingRequestJpaEntity.uuid)
         )
     }
 }
