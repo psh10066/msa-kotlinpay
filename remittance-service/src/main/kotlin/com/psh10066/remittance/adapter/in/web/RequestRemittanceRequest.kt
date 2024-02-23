@@ -1,6 +1,6 @@
 package com.psh10066.remittance.adapter.`in`.web
 
-import com.psh10066.common.BankName
+import com.psh10066.common.type.BankName
 import com.psh10066.remittance.application.port.`in`.RemittanceType
 
 data class RequestRemittanceRequest(

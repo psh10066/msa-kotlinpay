@@ -1,8 +1,8 @@
 package com.psh10066.remittance.adapter.out.service.banking
 
-import com.psh10066.common.BankName
+import com.psh10066.common.type.BankName
 import com.psh10066.common.CommonHttpClient
-import com.psh10066.common.ExternalSystemAdapter
+import com.psh10066.common.annotation.ExternalSystemAdapter
 import com.psh10066.remittance.application.port.out.banking.BankingInfo
 import com.psh10066.remittance.application.port.out.banking.BankingPort
 import org.springframework.beans.factory.annotation.Value

@@ -2,7 +2,7 @@ package com.psh10066.money.adapter.out.kafka
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import com.psh10066.common.RechargingMoneyTask
+import com.psh10066.common.type.RechargingMoneyTask
 import com.psh10066.money.application.port.out.SendRechargingMoneyTaskPort
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.clients.producer.ProducerRecord

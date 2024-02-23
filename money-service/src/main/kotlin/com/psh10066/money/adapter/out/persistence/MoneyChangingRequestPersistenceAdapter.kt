@@ -1,6 +1,6 @@
 package com.psh10066.money.adapter.out.persistence
 
-import com.psh10066.common.PersistenceAdapter
+import com.psh10066.common.annotation.PersistenceAdapter
 import com.psh10066.money.application.port.out.IncreaseMoneyPort
 import com.psh10066.money.domain.MoneyChangingStatus
 import com.psh10066.money.domain.MoneyChangingType

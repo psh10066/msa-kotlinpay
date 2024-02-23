@@ -8,7 +8,7 @@ import com.psh10066.banking.application.port.out.GetMembershipPort
 import com.psh10066.banking.application.port.out.RegisterBankAccountPort
 import com.psh10066.banking.application.port.out.RequestBankAccountInfoPort
 import com.psh10066.banking.domain.RegisteredBankAccount
-import com.psh10066.common.UseCase
+import com.psh10066.common.annotation.UseCase
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase

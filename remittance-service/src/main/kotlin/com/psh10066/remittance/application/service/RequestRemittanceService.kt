@@ -1,6 +1,6 @@
 package com.psh10066.remittance.application.service
 
-import com.psh10066.common.UseCase
+import com.psh10066.common.annotation.UseCase
 import com.psh10066.remittance.adapter.out.persistence.RemittanceRequestMapper
 import com.psh10066.remittance.adapter.out.persistence.RemittanceStatus
 import com.psh10066.remittance.application.port.`in`.RemittanceType

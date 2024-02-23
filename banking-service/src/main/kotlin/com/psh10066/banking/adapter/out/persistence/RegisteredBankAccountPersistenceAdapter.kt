@@ -1,8 +1,8 @@
 package com.psh10066.banking.adapter.out.persistence
 
 import com.psh10066.banking.application.port.out.RegisterBankAccountPort
-import com.psh10066.common.BankName
-import com.psh10066.common.PersistenceAdapter
+import com.psh10066.common.type.BankName
+import com.psh10066.common.annotation.PersistenceAdapter
 
 @PersistenceAdapter
 class RegisteredBankAccountPersistenceAdapter(

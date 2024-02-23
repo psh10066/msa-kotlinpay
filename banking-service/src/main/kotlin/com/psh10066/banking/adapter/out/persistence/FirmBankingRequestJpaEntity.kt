@@ -1,6 +1,6 @@
 package com.psh10066.banking.adapter.out.persistence
 
-import com.psh10066.common.BankName
+import com.psh10066.common.type.BankName
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 

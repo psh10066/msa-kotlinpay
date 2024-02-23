@@ -1,6 +1,6 @@
 package com.psh10066.membership.application.service
 
-import com.psh10066.common.UseCase
+import com.psh10066.common.annotation.UseCase
 import com.psh10066.membership.adapter.out.persistence.MembershipMapper
 import com.psh10066.membership.application.port.`in`.ModifyMembershipCommand
 import com.psh10066.membership.application.port.`in`.ModifyMembershipUseCase

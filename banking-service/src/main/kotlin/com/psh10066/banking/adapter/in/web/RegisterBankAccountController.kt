@@ -3,7 +3,7 @@ package com.psh10066.banking.adapter.`in`.web
 import com.psh10066.banking.application.port.`in`.RegisterBankAccountCommand
 import com.psh10066.banking.application.port.`in`.RegisterBankAccountUseCase
 import com.psh10066.banking.domain.RegisteredBankAccount
-import com.psh10066.common.WebAdapter
+import com.psh10066.common.annotation.WebAdapter
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController

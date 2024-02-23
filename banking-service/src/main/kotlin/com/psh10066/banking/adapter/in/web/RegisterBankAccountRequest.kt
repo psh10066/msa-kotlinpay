@@ -1,6 +1,6 @@
 package com.psh10066.banking.adapter.`in`.web
 
-import com.psh10066.common.BankName
+import com.psh10066.common.type.BankName
 
 data class RegisterBankAccountRequest(
     val membershipId: Long,

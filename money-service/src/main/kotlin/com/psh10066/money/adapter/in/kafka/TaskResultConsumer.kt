@@ -3,6 +3,9 @@ package com.psh10066.money.adapter.`in`.kafka
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.psh10066.common.*
+import com.psh10066.common.type.RechargingMoneyTask
+import com.psh10066.common.type.SubTaskStatus
+import com.psh10066.common.type.TaskResultStatus
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component

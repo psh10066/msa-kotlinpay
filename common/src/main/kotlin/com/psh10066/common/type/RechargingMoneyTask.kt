@@ -1,4 +1,4 @@
-package com.psh10066.common
+package com.psh10066.common.type
 
 data class RechargingMoneyTask(
 

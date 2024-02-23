@@ -8,9 +8,8 @@ import com.psh10066.banking.application.port.`in`.RequestFirmBankingUseCase
 import com.psh10066.banking.application.port.out.RequestExternalFirmBankingPort
 import com.psh10066.banking.application.port.out.RequestFirmBankingPort
 import com.psh10066.banking.domain.FirmBankingRequest
-import com.psh10066.common.UseCase
+import com.psh10066.common.annotation.UseCase
 import org.springframework.transaction.annotation.Transactional
-import java.util.*
 
 @UseCase
 @Transactional

@@ -1,6 +1,6 @@
 package com.psh10066.remittance.domain
 
-import com.psh10066.common.BankName
+import com.psh10066.common.type.BankName
 import com.psh10066.remittance.application.port.`in`.RemittanceType
 
 // 송금 요청 상태 클래스

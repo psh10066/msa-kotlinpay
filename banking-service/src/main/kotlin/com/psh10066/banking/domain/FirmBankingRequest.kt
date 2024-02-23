@@ -1,7 +1,7 @@
 package com.psh10066.banking.domain
 
 import com.psh10066.banking.adapter.out.persistence.FirmBankingStatus
-import com.psh10066.common.BankName
+import com.psh10066.common.type.BankName
 import java.util.*
 
 data class FirmBankingRequest(

@@ -1,6 +1,6 @@
 package com.psh10066.membership.adapter.`in`.web
 
-import com.psh10066.common.WebAdapter
+import com.psh10066.common.annotation.WebAdapter
 import com.psh10066.membership.application.port.`in`.FindMembershipCommand
 import com.psh10066.membership.application.port.`in`.FindMembershipUseCase
 import com.psh10066.membership.domain.Membership

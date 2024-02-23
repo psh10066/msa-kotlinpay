@@ -1,10 +1,8 @@
 package com.psh10066.banking.adapter.`in`.web
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.psh10066.banking.adapter.out.external.bank.BankAccount
 import com.psh10066.banking.domain.RegisteredBankAccount
-import com.psh10066.common.BankName
-import org.junit.jupiter.api.Assertions.*
+import com.psh10066.common.type.BankName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc

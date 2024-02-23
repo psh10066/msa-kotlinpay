@@ -1,6 +1,6 @@
 package com.psh10066.remittance.application.port.out.banking
 
-import com.psh10066.common.BankName
+import com.psh10066.common.type.BankName
 
 data class BankingInfo(
     val bankName: BankName?,

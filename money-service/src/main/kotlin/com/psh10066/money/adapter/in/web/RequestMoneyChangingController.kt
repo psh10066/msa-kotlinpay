@@ -1,6 +1,6 @@
 package com.psh10066.money.adapter.`in`.web
 
-import com.psh10066.common.WebAdapter
+import com.psh10066.common.annotation.WebAdapter
 import com.psh10066.money.application.port.`in`.IncreaseMoneyRequestCommand
 import com.psh10066.money.application.port.`in`.IncreaseMoneyRequestUseCase
 import org.springframework.web.bind.annotation.PostMapping
