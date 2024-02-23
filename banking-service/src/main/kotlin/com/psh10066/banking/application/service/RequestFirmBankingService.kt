@@ -39,9 +39,6 @@ class RequestFirmBankingService(
             )
         )
 
-        val randomUUID = UUID.randomUUID()
-        requestedJpaEntity.uuid = randomUUID.toString()
-
         if (result.resultCode == 0) {
             requestedJpaEntity.firmBankingStatus = FirmBankingStatus.SUCCESS
         } else {

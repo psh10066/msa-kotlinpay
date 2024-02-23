@@ -5,7 +5,6 @@ import com.psh10066.money.domain.MoneyChangingType
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
 import java.time.LocalDateTime
-import java.util.*
 
 @Comment("금액 변경 요청")
 @Entity
@@ -48,20 +47,4 @@ class MoneyChangingRequestJpaEntity(
     @field:Comment("Transaction UUID")
     @field:Column(nullable = false)
     var uuid: String? = null
-) {
-    constructor(
-        targetMembershipId: Long?,
-        moneyChangingType: MoneyChangingType?,
-        moneyAmount: Int?,
-        timestamp: LocalDateTime?,
-        moneyChangingStatus: MoneyChangingStatus?,
-        uuid: UUID?
-    ) : this() {
-        this.targetMembershipId = targetMembershipId
-        this.moneyChangingType = moneyChangingType
-        this.moneyAmount = moneyAmount
-        this.timestamp = timestamp
-        this.moneyChangingStatus = moneyChangingStatus
-        this.uuid = uuid?.toString()
-    }
-}
+)

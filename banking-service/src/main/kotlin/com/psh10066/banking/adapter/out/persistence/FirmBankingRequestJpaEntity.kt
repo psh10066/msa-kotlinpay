@@ -3,7 +3,6 @@ package com.psh10066.banking.adapter.out.persistence
 import com.psh10066.common.BankName
 import jakarta.persistence.*
 import org.hibernate.annotations.Comment
-import java.util.*
 
 @Comment("펌뱅킹 요청")
 @Entity
@@ -45,22 +44,4 @@ class FirmBankingRequestJpaEntity(
     @field:Comment("Transaction UUID")
     @field:Column(nullable = false)
     var uuid: String? = null
-) {
-    constructor(
-        fromBankName: BankName?,
-        fromBankAccountNumber: String?,
-        toBankName: BankName?,
-        toBankAccountNumber: String?,
-        moneyAmount: Long?,
-        firmBankingStatus: FirmBankingStatus,
-        uuid: UUID?
-    ) : this() {
-        this.fromBankName = fromBankName
-        this.fromBankAccountNumber = fromBankAccountNumber
-        this.toBankName = toBankName
-        this.toBankAccountNumber = toBankAccountNumber
-        this.moneyAmount = moneyAmount
-        this.firmBankingStatus = firmBankingStatus
-        this.uuid = uuid?.toString()
-    }
-}
+)

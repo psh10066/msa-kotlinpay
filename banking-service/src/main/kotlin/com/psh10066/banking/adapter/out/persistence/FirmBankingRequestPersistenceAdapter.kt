@@ -25,12 +25,13 @@ class FirmBankingRequestPersistenceAdapter(
                 toBankAccountNumber = toBankAccountNumber,
                 moneyAmount = moneyAmount,
                 firmBankingStatus = firmBankingStatus,
-                uuid = UUID.randomUUID()
+                uuid = UUID.randomUUID().toString()
             )
         )
     }
 
     override fun modifyFirmBankingRequest(firmBankingRequestJpaEntity: FirmBankingRequestJpaEntity): FirmBankingRequestJpaEntity {
+        firmBankingRequestJpaEntity.uuid = UUID.randomUUID().toString()
         return firmBankingRequestRepository.save(firmBankingRequestJpaEntity)
     }
 

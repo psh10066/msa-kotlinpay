@@ -26,7 +26,7 @@ class MoneyChangingRequestPersistenceAdapter(
                 moneyAmount = changingMoneyAccount,
                 timestamp = LocalDateTime.now(),
                 moneyChangingStatus = moneyChangingStatus,
-                uuid = UUID.randomUUID()
+                uuid = UUID.randomUUID().toString()
             )
         )
     }
