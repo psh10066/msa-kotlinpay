@@ -1,9 +1,8 @@
 package com.psh10066.banking.adapter.`in`.web
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.psh10066.banking.adapter.out.external.bank.BankAccount
 import com.psh10066.banking.domain.RegisteredBankAccount
-import org.junit.jupiter.api.Assertions.*
+import com.psh10066.common.type.BankName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -27,14 +26,14 @@ class RegisterBankAccountControllerTest {
     fun testRegisterBankAccount() {
         val request = RegisterBankAccountRequest(
             membershipId = 1,
-            bankName = "name",
+            bankName = BankName.국민은행,
             bankAccountNumber = "accountNumber",
             linkedStatusIsValid = true
         )
         val expect = RegisteredBankAccount(
             registeredBankAccountId = 1,
             membershipId = 1,
-            bankName = "name",
+            bankName = BankName.국민은행,
             bankAccountNumber = "accountNumber",
             linkedStatusIsValid = true
         )

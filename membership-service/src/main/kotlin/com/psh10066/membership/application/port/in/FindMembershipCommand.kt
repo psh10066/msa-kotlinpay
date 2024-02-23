@@ -8,4 +8,8 @@ data class FindMembershipCommand(
     @field:NotNull
     val membershipId: Long
 
-) : SelfValidating<FindMembershipCommand>()
+) : SelfValidating<FindMembershipCommand>() {
+    init {
+        this.validateSelf()
+    }
+}

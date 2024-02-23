@@ -2,7 +2,7 @@ package com.psh10066.banking.adapter.out.external.bank
 
 import com.psh10066.banking.application.port.out.RequestBankAccountInfoPort
 import com.psh10066.banking.application.port.out.RequestExternalFirmBankingPort
-import com.psh10066.common.ExternalSystemAdapter
+import com.psh10066.common.annotation.ExternalSystemAdapter
 
 @ExternalSystemAdapter
 class BankAccountAdapter : RequestBankAccountInfoPort, RequestExternalFirmBankingPort {

@@ -1,7 +1,7 @@
 package com.psh10066.remittance.adapter.out.service.money
 
 import com.psh10066.common.CommonHttpClient
-import com.psh10066.common.ExternalSystemAdapter
+import com.psh10066.common.annotation.ExternalSystemAdapter
 import com.psh10066.remittance.application.port.out.money.MoneyInfo
 import com.psh10066.remittance.application.port.out.money.MoneyPort
 import org.springframework.beans.factory.annotation.Value

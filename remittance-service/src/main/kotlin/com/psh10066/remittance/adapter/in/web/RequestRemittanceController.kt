@@ -1,6 +1,6 @@
 package com.psh10066.remittance.adapter.`in`.web
 
-import com.psh10066.common.WebAdapter
+import com.psh10066.common.annotation.WebAdapter
 import com.psh10066.remittance.application.port.`in`.RequestRemittanceCommand
 import com.psh10066.remittance.application.port.`in`.RequestRemittanceUseCase
 import com.psh10066.remittance.domain.RemittanceRequest

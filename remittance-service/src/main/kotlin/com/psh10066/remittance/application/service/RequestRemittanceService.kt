@@ -1,7 +1,9 @@
 package com.psh10066.remittance.application.service
 
-import com.psh10066.common.UseCase
+import com.psh10066.common.annotation.UseCase
 import com.psh10066.remittance.adapter.out.persistence.RemittanceRequestMapper
+import com.psh10066.remittance.adapter.out.persistence.RemittanceStatus
+import com.psh10066.remittance.application.port.`in`.RemittanceType
 import com.psh10066.remittance.application.port.`in`.RequestRemittanceCommand
 import com.psh10066.remittance.application.port.`in`.RequestRemittanceUseCase
 import com.psh10066.remittance.application.port.out.RequestRemittancePort
@@ -40,7 +42,7 @@ class RequestRemittanceService(
         }
 
         when (command.remittanceType) {
-            0 -> {
+            RemittanceType.MEMBERSHIP -> {
                 val remittanceResult1 = moneyPort.requestMoneyDecrease(
                     membershipId = command.fromMembershipId,
                     amount = command.amount
@@ -54,7 +56,7 @@ class RequestRemittanceService(
                 }
             }
 
-            1 -> {
+            RemittanceType.BANK -> {
                 val remittanceRequest = bankingPort.requestFirmBanking(
                     bankName = command.toBankName!!,
                     bankAccountNumber = command.toBankAccountNumber!!,
@@ -64,9 +66,11 @@ class RequestRemittanceService(
                     return null
                 }
             }
+
+            else -> TODO()
         }
 
-        entity.remittanceStatus = "SUCCESS"
+        entity.remittanceStatus = RemittanceStatus.SUCCESS
         val result = requestRemittancePort.saveRemittanceRequestHistory(entity)
         if (result) {
             return remittanceRequestMapper.mapToDomainEntity(entity)

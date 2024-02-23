@@ -1,6 +1,6 @@
 package com.psh10066.remittance.adapter.out.persistence
 
-import com.psh10066.common.PersistenceAdapter
+import com.psh10066.common.annotation.PersistenceAdapter
 import com.psh10066.remittance.application.port.`in`.FindRemittanceCommand
 import com.psh10066.remittance.application.port.`in`.RequestRemittanceCommand
 import com.psh10066.remittance.application.port.out.FindRemittancePort

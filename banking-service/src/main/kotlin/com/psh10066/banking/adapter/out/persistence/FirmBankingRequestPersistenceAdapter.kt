@@ -1,7 +1,8 @@
 package com.psh10066.banking.adapter.out.persistence
 
 import com.psh10066.banking.application.port.out.RequestFirmBankingPort
-import com.psh10066.common.PersistenceAdapter
+import com.psh10066.common.type.BankName
+import com.psh10066.common.annotation.PersistenceAdapter
 import java.util.*
 
 @PersistenceAdapter
@@ -9,12 +10,12 @@ class FirmBankingRequestPersistenceAdapter(
     val firmBankingRequestRepository: SpringDataFirmBankingRequestRepository
 ) : RequestFirmBankingPort {
     override fun createFirmBankingRequest(
-        fromBankName: String,
+        fromBankName: BankName,
         fromBankAccountNumber: String,
-        toBankName: String,
+        toBankName: BankName,
         toBankAccountNumber: String,
         moneyAmount: Long,
-        firmBankingStatus: Int
+        firmBankingStatus: FirmBankingStatus
     ): FirmBankingRequestJpaEntity {
         return firmBankingRequestRepository.save(
             FirmBankingRequestJpaEntity(
@@ -24,12 +25,13 @@ class FirmBankingRequestPersistenceAdapter(
                 toBankAccountNumber = toBankAccountNumber,
                 moneyAmount = moneyAmount,
                 firmBankingStatus = firmBankingStatus,
-                uuid = UUID.randomUUID()
+                uuid = UUID.randomUUID().toString()
             )
         )
     }
 
     override fun modifyFirmBankingRequest(firmBankingRequestJpaEntity: FirmBankingRequestJpaEntity): FirmBankingRequestJpaEntity {
+        firmBankingRequestJpaEntity.uuid = UUID.randomUUID().toString()
         return firmBankingRequestRepository.save(firmBankingRequestJpaEntity)
     }
 

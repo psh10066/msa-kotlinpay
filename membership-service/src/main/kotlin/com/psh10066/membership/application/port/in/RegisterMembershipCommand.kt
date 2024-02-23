@@ -20,4 +20,9 @@ data class RegisterMembershipCommand(
 
     val isCorp: Boolean
 
-) : SelfValidating<RegisterMembershipCommand>()
+) : SelfValidating<RegisterMembershipCommand>() {
+    init {
+        this.validateSelf()
+    }
+}
+

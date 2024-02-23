@@ -6,6 +6,10 @@ import jakarta.validation.constraints.NotNull
 data class FindRemittanceCommand(
 
     @field:NotNull
-    val membershipId: Long,
+    val membershipId: Long
 
-    ) : SelfValidating<FindRemittanceCommand>()
+) : SelfValidating<FindRemittanceCommand>() {
+    init {
+        this.validateSelf()
+    }
+}

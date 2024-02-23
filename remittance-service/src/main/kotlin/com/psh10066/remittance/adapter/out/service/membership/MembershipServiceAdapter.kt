@@ -3,7 +3,7 @@ package com.psh10066.remittance.adapter.out.service.membership
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.psh10066.common.CommonHttpClient
-import com.psh10066.common.ExternalSystemAdapter
+import com.psh10066.common.annotation.ExternalSystemAdapter
 import com.psh10066.remittance.application.port.out.membership.MembershipPort
 import com.psh10066.remittance.application.port.out.membership.MembershipStatus
 import org.springframework.beans.factory.annotation.Value

@@ -1,5 +1,6 @@
 package com.psh10066.remittance.application.port.`in`
 
+import com.psh10066.common.type.BankName
 import com.psh10066.common.SelfValidating
 import jakarta.validation.constraints.NotNull
 
@@ -10,13 +11,18 @@ data class RequestRemittanceCommand(
 
     val toMembershipId: Long?,
 
-    val toBankName: String?,
+    val toBankName: BankName?,
     val toBankAccountNumber: String?,
 
     @field:NotNull
-    val remittanceType: Int?, // 0: membership (내부 고객), 1: bank (외부 은행 계좌)
+    val remittanceType: RemittanceType?,
 
     @field:NotNull
-    val amount: Int?,
+    val amount: Int?
 
-    ) : SelfValidating<RequestRemittanceCommand>()
+) : SelfValidating<RequestRemittanceCommand>() {
+    init {
+        this.validateSelf()
+    }
+}
+

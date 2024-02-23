@@ -1,4 +1,4 @@
-package com.psh10066.common
+package com.psh10066.common.annotation
 
 import org.springframework.core.annotation.AliasFor
 import org.springframework.stereotype.Component
