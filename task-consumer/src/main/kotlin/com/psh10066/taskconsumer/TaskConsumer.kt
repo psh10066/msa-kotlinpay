@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.psh10066.common.RechargingMoneyTask
+import com.psh10066.common.SubTaskStatus
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -50,7 +51,7 @@ class TaskConsumer(
                         // task result
                         for (subTask in task.subTaskList) {
                             // 모든 sub task가 이상이 없다고 가정
-                            subTask.status = "success"
+                            subTask.status = SubTaskStatus.SUCCESS
                         }
                         // produce task result
                         taskResultProducer.sendMessage(record.key(), record.value())

@@ -1,5 +1,6 @@
 package com.psh10066.remittance.adapter.out.persistence
 
+import com.psh10066.remittance.application.port.`in`.RemittanceType
 import jakarta.persistence.*
 
 @Entity
@@ -13,7 +14,12 @@ class RemittanceRequestJpaEntity(
     val toMembershipId: Long? = null,
     val toBankName: String? = null,
     val toBankAccountNumber: String? = null,
-    val remittanceType: Int? = null, // 0: membership (내부 고객), 1: bank (외부 은행 계좌)
+
+    @field:Enumerated(EnumType.STRING)
+    val remittanceType: RemittanceType? = null,
+
     val amount: Int? = null,
-    var remittanceStatus: String? = null
+
+    @field:Enumerated(EnumType.STRING)
+    var remittanceStatus: RemittanceStatus? = null
 )

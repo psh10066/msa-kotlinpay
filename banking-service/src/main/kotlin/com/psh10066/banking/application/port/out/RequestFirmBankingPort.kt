@@ -1,6 +1,7 @@
 package com.psh10066.banking.application.port.out
 
 import com.psh10066.banking.adapter.out.persistence.FirmBankingRequestJpaEntity
+import com.psh10066.banking.adapter.out.persistence.FirmBankingStatus
 
 interface RequestFirmBankingPort {
 
@@ -10,7 +11,7 @@ interface RequestFirmBankingPort {
         toBankName: String,
         toBankAccountNumber: String,
         moneyAmount: Long,
-        firmBankingStatus: Int
+        firmBankingStatus: FirmBankingStatus
     ): FirmBankingRequestJpaEntity
 
     fun modifyFirmBankingRequest(

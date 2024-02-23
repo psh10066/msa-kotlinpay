@@ -1,9 +1,6 @@
 package com.psh10066.money.application.service
 
-import com.psh10066.common.CountDownLatchManager
-import com.psh10066.common.RechargingMoneyTask
-import com.psh10066.common.SubTask
-import com.psh10066.common.UseCase
+import com.psh10066.common.*
 import com.psh10066.money.adapter.out.persistence.MoneyChangingRequestMapper
 import com.psh10066.money.application.port.`in`.IncreaseMoneyRequestCommand
 import com.psh10066.money.application.port.`in`.IncreaseMoneyRequestUseCase
@@ -58,14 +55,14 @@ class IncreaseMoneyRequestService(
             membershipId = command.targetMembershipId,
             subTaskName = "validMemberTask : 멤버십 유효성 검사",
             taskType = "membership",
-            status = "ready"
+            status = SubTaskStatus.READY
         )
 
         val validBankingAccountTask = SubTask(
             membershipId = command.targetMembershipId,
             subTaskName = "validBankingAccountTask : 뱅킹 계좌 유효성 검사",
             taskType = "banking",
-            status = "ready"
+            status = SubTaskStatus.READY
         )
 
         val subTaskList = listOf(validMemberTask, validBankingAccountTask)
@@ -88,7 +85,7 @@ class IncreaseMoneyRequestService(
 
         // 4. task result consume
         countDownLatchManager.getDataForKey(task.taskID)?.let {
-            if (it.equals("success")) {
+            if (it == TaskResultStatus.SUCCESS) {
                 // 4-1. consume ok, logic
                 increaseMoneyPort.increaseMoney(
                     membershipId = command.targetMembershipId,

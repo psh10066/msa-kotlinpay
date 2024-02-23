@@ -14,7 +14,7 @@ data class RequestRemittanceCommand(
     val toBankAccountNumber: String?,
 
     @field:NotNull
-    val remittanceType: Int?, // 0: membership (내부 고객), 1: bank (외부 은행 계좌)
+    val remittanceType: RemittanceType?,
 
     @field:NotNull
     val amount: Int?

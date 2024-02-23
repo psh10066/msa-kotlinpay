@@ -2,9 +2,7 @@ package com.psh10066.money.adapter.`in`.kafka
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import com.psh10066.common.CountDownLatchManager
-import com.psh10066.common.LoggingProducer
-import com.psh10066.common.RechargingMoneyTask
+import com.psh10066.common.*
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
@@ -55,17 +53,17 @@ class TaskResultConsumer(
                         for (subTask in task.subTaskList) {
                             // TODO : validation
                             // 한 번만 실패해도 실패한 task로 간주
-                            if (subTask.status.equals("fail")) {
+                            if (subTask.status == SubTaskStatus.FAIL) {
                                 taskResult = false
                             }
                         }
 
                         if (taskResult) {
                             this.loggingProducer.sendMessage(task.taskID, "task success")
-                            this.countDownLatchManager.setDataForKey(task.taskID, "success")
+                            this.countDownLatchManager.setDataForKey(task.taskID, TaskResultStatus.SUCCESS)
                         } else {
                             this.loggingProducer.sendMessage(task.taskID, "task failed")
-                            this.countDownLatchManager.setDataForKey(task.taskID, "failed")
+                            this.countDownLatchManager.setDataForKey(task.taskID, TaskResultStatus.FAIL)
                         }
 
                         // 3초 소요 가정

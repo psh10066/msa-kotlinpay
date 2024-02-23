@@ -1,5 +1,6 @@
 package com.psh10066.banking.domain
 
+import com.psh10066.banking.adapter.out.persistence.FirmBankingStatus
 import java.util.*
 
 data class FirmBankingRequest(
@@ -9,6 +10,6 @@ data class FirmBankingRequest(
     val toBankName: String?,
     val toBankAccountNumber: String?,
     val moneyAmount: Long?,
-    val firmBankingStatus: Int = 0,
+    val firmBankingStatus: FirmBankingStatus = FirmBankingStatus.REQUESTED,
     val uuid: UUID?
 )

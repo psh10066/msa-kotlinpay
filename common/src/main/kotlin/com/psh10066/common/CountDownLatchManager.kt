@@ -6,18 +6,18 @@ import java.util.concurrent.CountDownLatch
 @Configuration
 class CountDownLatchManager {
     private val countDownLatchMap: MutableMap<String, CountDownLatch> = HashMap()
-    private val stringMap: MutableMap<String, String> = HashMap()
+    private val dataMap: MutableMap<String, Any> = HashMap()
 
     fun addCountDownLatch(key: String) {
         countDownLatchMap[key] = CountDownLatch(1)
     }
 
-    fun setDataForKey(key: String, data: String) {
-        stringMap[key] = data
+    fun setDataForKey(key: String, data: Any) {
+        dataMap[key] = data
     }
 
-    fun getDataForKey(key: String): String? {
-        return stringMap[key]
+    fun getDataForKey(key: String): Any? {
+        return dataMap[key]
     }
 
     fun getCountDownLatch(key: String): CountDownLatch? {

@@ -14,7 +14,7 @@ class FirmBankingRequestPersistenceAdapter(
         toBankName: String,
         toBankAccountNumber: String,
         moneyAmount: Long,
-        firmBankingStatus: Int
+        firmBankingStatus: FirmBankingStatus
     ): FirmBankingRequestJpaEntity {
         return firmBankingRequestRepository.save(
             FirmBankingRequestJpaEntity(

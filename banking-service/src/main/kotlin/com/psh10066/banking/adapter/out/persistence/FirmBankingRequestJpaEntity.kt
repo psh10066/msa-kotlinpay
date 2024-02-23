@@ -21,7 +21,8 @@ class FirmBankingRequestJpaEntity(
 
     var moneyAmount: Long? = null,
 
-    var firmBankingStatus: Int = 0, // 0: 요청, 1: 성공, 2: 실패
+    @field:Enumerated(EnumType.STRING)
+    var firmBankingStatus: FirmBankingStatus = FirmBankingStatus.REQUESTED,
 
     var uuid: String? = null
 ) {
@@ -31,7 +32,7 @@ class FirmBankingRequestJpaEntity(
         toBankName: String?,
         toBankAccountNumber: String?,
         moneyAmount: Long?,
-        firmBankingStatus: Int,
+        firmBankingStatus: FirmBankingStatus,
         uuid: UUID?
     ) : this() {
         this.fromBankName = fromBankName
