@@ -3,6 +3,7 @@ package com.psh10066.money.application.service
 import com.psh10066.common.CountDownLatchManager
 import com.psh10066.common.annotation.UseCase
 import com.psh10066.common.type.*
+import com.psh10066.money.adapter.axon.command.IncreaseMemberMoneyCommand
 import com.psh10066.money.adapter.axon.command.MemberMoneyCreatedCommand
 import com.psh10066.money.adapter.out.persistence.MoneyChangingRequestMapper
 import com.psh10066.money.application.port.`in`.CreateMemberMoneyCommand
@@ -10,6 +11,7 @@ import com.psh10066.money.application.port.`in`.CreateMemberMoneyUseCase
 import com.psh10066.money.application.port.`in`.IncreaseMoneyRequestCommand
 import com.psh10066.money.application.port.`in`.IncreaseMoneyRequestUseCase
 import com.psh10066.money.application.port.out.CreateMemberMoneyPort
+import com.psh10066.money.application.port.out.GetMemberMoneyPort
 import com.psh10066.money.application.port.out.IncreaseMoneyPort
 import com.psh10066.money.application.port.out.SendRechargingMoneyTaskPort
 import com.psh10066.money.domain.MoneyChangingRequest
@@ -27,7 +29,8 @@ class IncreaseMoneyRequestService(
     private val increaseMoneyPort: IncreaseMoneyPort,
     private val moneyChangingRequestMapper: MoneyChangingRequestMapper,
     private val commandGateway: CommandGateway,
-    private val createMemberMoneyPort: CreateMemberMoneyPort
+    private val createMemberMoneyPort: CreateMemberMoneyPort,
+    private val getMemberMoneyPort: GetMemberMoneyPort
 ) : IncreaseMoneyRequestUseCase, CreateMemberMoneyUseCase {
     override fun increaseMoneyRequest(command: IncreaseMoneyRequestCommand): MoneyChangingRequest {
 
@@ -126,6 +129,28 @@ class IncreaseMoneyRequestService(
                 createMemberMoneyPort.createMemberMoney(
                     membershipId = command.membershipId,
                     aggregateIdentifier = result
+                )
+            }
+        }
+    }
+
+    override fun increaseMoneyRequestByEvent(command: IncreaseMoneyRequestCommand) {
+        val memberMoneyJpaEntity = getMemberMoneyPort.getMemberMoney(command.targetMembershipId)
+        val axonCommand = IncreaseMemberMoneyCommand(
+            aggregateIdentifier = memberMoneyJpaEntity.aggregateIdentifier!!,
+            membershipId = command.targetMembershipId,
+            amount = command.amount
+        )
+
+        commandGateway.send<String>(axonCommand).whenComplete { result, throwable ->
+            if (throwable != null) {
+                println("throwable : $throwable")
+                throw RuntimeException(throwable)
+            } else {
+                println("result : $result")
+                increaseMoneyPort.increaseMoney(
+                    membershipId = command.targetMembershipId,
+                    moneyAmount = command.amount
                 )
             }
         }

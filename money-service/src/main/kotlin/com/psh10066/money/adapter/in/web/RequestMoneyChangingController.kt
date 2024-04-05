@@ -62,4 +62,13 @@ class RequestMoneyChangingController(
             )
         )
     }
+
+    @PostMapping(path = ["/money/increase-eda"])
+    fun increaseMoneyChangingRequestByEvent(@RequestBody request: IncreaseMoneyChangingRequest) {
+        val command = IncreaseMoneyRequestCommand(
+            targetMembershipId = request.targetMembershipId,
+            amount = request.amount
+        )
+        increaseMoneyRequestUseCase.increaseMoneyRequestByEvent(command) 
+    }
 }
