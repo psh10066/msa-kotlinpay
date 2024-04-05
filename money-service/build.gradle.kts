@@ -9,6 +9,8 @@ plugins {
     id("com.palantir.docker") version "0.35.0"
 }
 
+val axonVersion = "4.9.1"
+
 group = "com.psh10066.money"
 version = "1.0.0"
 
@@ -42,6 +44,9 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
 
     implementation(project(":common"))
+
+    implementation(group = "org.axonframework", name = "axon-configuration", version = axonVersion)
+    implementation(group = "org.axonframework", name = "axon-spring-boot-starter", version = axonVersion)
 }
 
 tasks.withType<KotlinCompile> {

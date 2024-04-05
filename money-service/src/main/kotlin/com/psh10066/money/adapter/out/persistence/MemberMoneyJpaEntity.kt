@@ -25,4 +25,6 @@ class MemberMoneyJpaEntity(
     @field:Comment("회원 잔고 금액")
     @field:Column(nullable = false)
     var moneyBalance: Int? = null,
+
+    val aggregateIdentifier: String? = null
 )
