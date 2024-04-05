@@ -1,6 +1,8 @@
 package com.psh10066.money.adapter.out.persistence
 
 import com.psh10066.common.annotation.PersistenceAdapter
+import com.psh10066.money.application.port.out.CreateMemberMoneyPort
+import com.psh10066.money.application.port.out.GetMemberMoneyPort
 import com.psh10066.money.application.port.out.IncreaseMoneyPort
 import com.psh10066.money.domain.MoneyChangingStatus
 import com.psh10066.money.domain.MoneyChangingType
@@ -11,7 +13,7 @@ import java.util.*
 class MoneyChangingRequestPersistenceAdapter(
     val moneyChangingRequestRepository: SpringDataMoneyChangingRequestRepository,
     val memberMoneyRepository: SpringDataMemberMoneyRepository
-) : IncreaseMoneyPort {
+) : IncreaseMoneyPort, CreateMemberMoneyPort, GetMemberMoneyPort {
 
     override fun createMoneyChangingRequest(
         targetMemberId: Long,
@@ -39,11 +41,32 @@ class MoneyChangingRequestPersistenceAdapter(
             ?: memberMoneyRepository.save(
                 MemberMoneyJpaEntity(
                     membershipId = membershipId,
-                    moneyBalance = 0
+                    moneyBalance = 0,
+                    aggregateIdentifier = ""
                 )
             )
 
         entity.moneyBalance = entity.moneyBalance?.plus(moneyAmount)
         return memberMoneyRepository.save(entity)
+    }
+
+    override fun createMemberMoney(membershipId: Long, aggregateIdentifier: String) {
+        val entity = MemberMoneyJpaEntity(
+            membershipId = membershipId,
+            moneyBalance = 0,
+            aggregateIdentifier = aggregateIdentifier
+        )
+        memberMoneyRepository.save(entity)
+    }
+
+    override fun getMemberMoney(membershipId: Long): MemberMoneyJpaEntity {
+        return memberMoneyRepository.findByMembershipId(membershipId)
+            ?: memberMoneyRepository.save(
+                MemberMoneyJpaEntity(
+                    membershipId = membershipId,
+                    moneyBalance = 0,
+                    aggregateIdentifier = UUID.randomUUID().toString()
+                )
+            )
     }
 }

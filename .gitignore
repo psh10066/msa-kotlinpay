@@ -38,3 +38,6 @@ out/
 
 ### MySQL ###
 db/data/
+
+### Axon Framework ###
+axon-server-se

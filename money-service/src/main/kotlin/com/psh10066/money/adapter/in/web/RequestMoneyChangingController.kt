@@ -1,6 +1,8 @@
 package com.psh10066.money.adapter.`in`.web
 
 import com.psh10066.common.annotation.WebAdapter
+import com.psh10066.money.application.port.`in`.CreateMemberMoneyCommand
+import com.psh10066.money.application.port.`in`.CreateMemberMoneyUseCase
 import com.psh10066.money.application.port.`in`.IncreaseMoneyRequestCommand
 import com.psh10066.money.application.port.`in`.IncreaseMoneyRequestUseCase
 import org.springframework.web.bind.annotation.PostMapping
@@ -10,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController
 @WebAdapter
 @RestController
 class RequestMoneyChangingController(
-    private val increaseMoneyRequestUseCase: IncreaseMoneyRequestUseCase
+    private val increaseMoneyRequestUseCase: IncreaseMoneyRequestUseCase,
+    private val createMemberMoneyUseCase: CreateMemberMoneyUseCase
 ) {
 
     @PostMapping(path = ["/money/increase"])
@@ -49,5 +52,23 @@ class RequestMoneyChangingController(
                     amount = it.moneyChangingAmount
                 )
             }
+    }
+
+    @PostMapping(path = ["/money/create-member-money"])
+    fun createMemberMoney(@RequestBody request: CreateMemberMoneyRequest) {
+        createMemberMoneyUseCase.createMemberMoney(
+            command = CreateMemberMoneyCommand(
+                membershipId = request.membershipId
+            )
+        )
+    }
+
+    @PostMapping(path = ["/money/increase-eda"])
+    fun increaseMoneyChangingRequestByEvent(@RequestBody request: IncreaseMoneyChangingRequest) {
+        val command = IncreaseMoneyRequestCommand(
+            targetMembershipId = request.targetMembershipId,
+            amount = request.amount
+        )
+        increaseMoneyRequestUseCase.increaseMoneyRequestByEvent(command) 
     }
 }

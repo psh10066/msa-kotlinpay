@@ -6,4 +6,6 @@ interface IncreaseMoneyRequestUseCase {
 
     fun increaseMoneyRequest(command: IncreaseMoneyRequestCommand): MoneyChangingRequest
     fun increaseMoneyRequestAsync(command: IncreaseMoneyRequestCommand): MoneyChangingRequest
+
+    fun increaseMoneyRequestByEvent(command: IncreaseMoneyRequestCommand)
 }
