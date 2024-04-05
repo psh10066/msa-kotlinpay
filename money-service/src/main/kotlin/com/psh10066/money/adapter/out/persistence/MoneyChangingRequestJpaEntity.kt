@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 @Table(
     name = "money_changing_request",
     indexes = [
-        Index(name = "targetMembershipId", columnList = "fromMembershipId")
+        Index(name = "targetMembershipId", columnList = "targetMembershipId")
     ]
 )
 class MoneyChangingRequestJpaEntity(
