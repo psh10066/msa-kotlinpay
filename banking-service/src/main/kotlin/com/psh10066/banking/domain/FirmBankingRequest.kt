@@ -12,5 +12,6 @@ data class FirmBankingRequest(
     val toBankAccountNumber: String?,
     val moneyAmount: Long?,
     val firmBankingStatus: FirmBankingStatus = FirmBankingStatus.REQUESTED,
-    val uuid: UUID?
+    val uuid: UUID?,
+    val aggregateIdentifier: String? = null
 )

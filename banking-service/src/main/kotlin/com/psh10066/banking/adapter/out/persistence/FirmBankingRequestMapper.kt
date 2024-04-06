@@ -18,7 +18,8 @@ class FirmBankingRequestMapper {
             toBankAccountNumber = firmBankingRequestJpaEntity.toBankAccountNumber,
             moneyAmount = firmBankingRequestJpaEntity.moneyAmount,
             firmBankingStatus = firmBankingRequestJpaEntity.firmBankingStatus,
-            uuid = UUID.fromString(firmBankingRequestJpaEntity.uuid)
+            uuid = UUID.fromString(firmBankingRequestJpaEntity.uuid),
+            aggregateIdentifier = firmBankingRequestJpaEntity.aggregateIdentifier
         )
     }
 }

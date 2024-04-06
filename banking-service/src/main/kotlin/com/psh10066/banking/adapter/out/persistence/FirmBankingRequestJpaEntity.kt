@@ -43,5 +43,7 @@ class FirmBankingRequestJpaEntity(
 
     @field:Comment("Transaction UUID")
     @field:Column(nullable = false)
-    var uuid: String? = null
+    var uuid: String? = null,
+
+    val aggregateIdentifier: String? = null
 )
