@@ -26,4 +26,17 @@ class RegisterBankAccountController(
 
         return registerMembershipUseCase.registerBankAccount(command)
     }
+
+    @PostMapping(path = ["/banking/account/register-eda"])
+    fun registerBankAccountByEvent(@RequestBody request: RegisterBankAccountRequest) {
+
+        val command = RegisterBankAccountCommand(
+            membershipId = request.membershipId,
+            bankName = request.bankName,
+            bankAccountNumber = request.bankAccountNumber,
+            linkedStatusIsValid = request.linkedStatusIsValid
+        )
+
+        registerMembershipUseCase.registerBankAccountByEvent(command)
+    }
 }

@@ -1,5 +1,6 @@
 package com.psh10066.banking.application.service
 
+import com.psh10066.banking.adapter.axon.command.CreateRegisteredBankAccountCommand
 import com.psh10066.banking.adapter.out.external.bank.GetBankAccountRequest
 import com.psh10066.banking.adapter.out.persistence.RegisteredBankAccountMapper
 import com.psh10066.banking.application.port.`in`.RegisterBankAccountCommand
@@ -11,6 +12,7 @@ import com.psh10066.banking.domain.RegisteredBankAccount
 import com.psh10066.common.annotation.UseCase
 import com.psh10066.common.exception.CustomException
 import com.psh10066.common.exception.ErrorType
+import org.axonframework.commandhandling.gateway.CommandGateway
 import org.springframework.transaction.annotation.Transactional
 
 @UseCase
@@ -19,7 +21,8 @@ class RegisterBankAccountService(
     private val getMembershipPort: GetMembershipPort,
     private val registerMembershipPort: RegisterBankAccountPort,
     private val requestBankAccountInfoPort: RequestBankAccountInfoPort,
-    private val bankAccountMapper: RegisteredBankAccountMapper
+    private val bankAccountMapper: RegisteredBankAccountMapper,
+    private val commandGateway: CommandGateway
 ) : RegisterBankAccountUseCase {
     override fun registerBankAccount(command: RegisterBankAccountCommand): RegisteredBankAccount {
 
@@ -46,5 +49,26 @@ class RegisterBankAccountService(
         )
 
         return bankAccountMapper.mapToDomainEntity(jpaEntity)
+    }
+
+    override fun registerBankAccountByEvent(command: RegisterBankAccountCommand) {
+        commandGateway.send<String>(
+            CreateRegisteredBankAccountCommand(
+                membershipId = command.membershipId,
+                bankName = command.bankName,
+                bankAccountNumber = command.bankAccountNumber
+            )
+        ).whenComplete { result, throwable ->
+            if (throwable != null) {
+                throwable.printStackTrace()
+            } else {
+                registerMembershipPort.createRegisteredBankAccount(
+                    membershipId = command.membershipId,
+                    bankName = command.bankName,
+                    bankAccountNumber = command.bankAccountNumber,
+                    linkedStatusIsValid = command.linkedStatusIsValid
+                )
+            }
+        }
     }
 }
