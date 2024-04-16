@@ -3,9 +3,12 @@ package com.psh10066.banking.application.service
 import com.psh10066.banking.adapter.axon.command.CreateRegisteredBankAccountCommand
 import com.psh10066.banking.adapter.out.external.bank.GetBankAccountRequest
 import com.psh10066.banking.adapter.out.persistence.RegisteredBankAccountMapper
+import com.psh10066.banking.application.port.`in`.GetRegisteredBankAccountCommand
+import com.psh10066.banking.application.port.`in`.GetRegisteredBankAccountUseCase
 import com.psh10066.banking.application.port.`in`.RegisterBankAccountCommand
 import com.psh10066.banking.application.port.`in`.RegisterBankAccountUseCase
 import com.psh10066.banking.application.port.out.GetMembershipPort
+import com.psh10066.banking.application.port.out.GetRegisteredBankAccountPort
 import com.psh10066.banking.application.port.out.RegisterBankAccountPort
 import com.psh10066.banking.application.port.out.RequestBankAccountInfoPort
 import com.psh10066.banking.domain.RegisteredBankAccount
@@ -22,8 +25,9 @@ class RegisterBankAccountService(
     private val registerMembershipPort: RegisterBankAccountPort,
     private val requestBankAccountInfoPort: RequestBankAccountInfoPort,
     private val bankAccountMapper: RegisteredBankAccountMapper,
+    private val getRegisteredBankAccountPort: GetRegisteredBankAccountPort,
     private val commandGateway: CommandGateway
-) : RegisterBankAccountUseCase {
+) : RegisterBankAccountUseCase, GetRegisteredBankAccountUseCase {
     override fun registerBankAccount(command: RegisterBankAccountCommand): RegisteredBankAccount {
 
         getMembershipPort.getMembership(membershipId = command.membershipId).also {
@@ -45,7 +49,8 @@ class RegisterBankAccountService(
             membershipId = command.membershipId,
             bankName = command.bankName,
             bankAccountNumber = command.bankAccountNumber,
-            linkedStatusIsValid = command.linkedStatusIsValid
+            linkedStatusIsValid = command.linkedStatusIsValid,
+            aggregateIdentifier = ""
         )
 
         return bankAccountMapper.mapToDomainEntity(jpaEntity)
@@ -66,9 +71,15 @@ class RegisterBankAccountService(
                     membershipId = command.membershipId,
                     bankName = command.bankName,
                     bankAccountNumber = command.bankAccountNumber,
-                    linkedStatusIsValid = command.linkedStatusIsValid
+                    linkedStatusIsValid = command.linkedStatusIsValid,
+                    aggregateIdentifier = result.toString()
                 )
             }
         }
+    }
+
+    override fun getRegisteredBankAccount(command: GetRegisteredBankAccountCommand): RegisteredBankAccount {
+        val jpaEntity = getRegisteredBankAccountPort.getRegisteredBankAccount(command)
+        return bankAccountMapper.mapToDomainEntity(jpaEntity)
     }
 }

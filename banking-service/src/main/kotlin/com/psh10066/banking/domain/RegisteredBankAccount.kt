@@ -8,4 +8,5 @@ data class RegisteredBankAccount(
     val bankName: BankName?,
     val bankAccountNumber: String?,
     val linkedStatusIsValid: Boolean?,
+    val aggregateIdentifier: String?
 )

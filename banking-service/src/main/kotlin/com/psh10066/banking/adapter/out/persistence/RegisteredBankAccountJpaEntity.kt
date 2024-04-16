@@ -33,6 +33,9 @@ class RegisteredBankAccountJpaEntity(
 
     @field:Comment("정상 연동 여부")
     @field:Column(nullable = false)
-    var linkedStatusIsValid: Boolean? = null
+    var linkedStatusIsValid: Boolean? = null,
 
+    @field:Comment("Transaction UUID")
+    @field:Column(nullable = false)
+    var aggregateIdentifier: String? = null
 )

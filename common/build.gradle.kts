@@ -7,6 +7,8 @@ plugins {
     kotlin("plugin.spring") version "1.9.20"
 }
 
+val axonVersion = "4.9.1"
+
 group = "com.psh10066.common"
 version = "0.0.1-SNAPSHOT"
 
@@ -26,6 +28,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.kafka:spring-kafka")
+
+    implementation(group = "org.axonframework", name = "axon-configuration", version = axonVersion)
+    implementation(group = "org.axonframework", name = "axon-spring-boot-starter", version = axonVersion)
 }
 
 tasks.withType<KotlinCompile> {

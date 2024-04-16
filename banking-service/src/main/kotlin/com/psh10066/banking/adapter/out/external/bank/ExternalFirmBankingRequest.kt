@@ -7,5 +7,7 @@ data class ExternalFirmBankingRequest(
     val fromBankAccountNumber: String,
 
     val toBankName: BankName,
-    val toBankAccountNumber: String
+    val toBankAccountNumber: String,
+
+    val amount: Long
 )

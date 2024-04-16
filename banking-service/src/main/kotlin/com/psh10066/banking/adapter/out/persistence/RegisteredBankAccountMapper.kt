@@ -13,6 +13,7 @@ class RegisteredBankAccountMapper {
             bankName = registeredBankAccountJpaEntity.bankName,
             bankAccountNumber = registeredBankAccountJpaEntity.bankAccountNumber,
             linkedStatusIsValid = registeredBankAccountJpaEntity.linkedStatusIsValid,
+            aggregateIdentifier = registeredBankAccountJpaEntity.aggregateIdentifier
         )
     }
 }

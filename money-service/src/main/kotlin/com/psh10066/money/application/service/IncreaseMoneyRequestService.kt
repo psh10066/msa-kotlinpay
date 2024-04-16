@@ -3,8 +3,8 @@ package com.psh10066.money.application.service
 import com.psh10066.common.CountDownLatchManager
 import com.psh10066.common.annotation.UseCase
 import com.psh10066.common.type.*
-import com.psh10066.money.adapter.axon.command.IncreaseMemberMoneyCommand
 import com.psh10066.money.adapter.axon.command.MemberMoneyCreatedCommand
+import com.psh10066.money.adapter.axon.command.RechargingMemberMoneyRequestCreateCommand
 import com.psh10066.money.adapter.out.persistence.MoneyChangingRequestMapper
 import com.psh10066.money.application.port.`in`.CreateMemberMoneyCommand
 import com.psh10066.money.application.port.`in`.CreateMemberMoneyUseCase
@@ -136,23 +136,41 @@ class IncreaseMoneyRequestService(
 
     override fun increaseMoneyRequestByEvent(command: IncreaseMoneyRequestCommand) {
         val memberMoneyJpaEntity = getMemberMoneyPort.getMemberMoney(command.targetMembershipId)
-        val axonCommand = IncreaseMemberMoneyCommand(
-            aggregateIdentifier = memberMoneyJpaEntity.aggregateIdentifier!!,
-            membershipId = command.targetMembershipId,
-            amount = command.amount
-        )
 
-        commandGateway.send<String>(axonCommand).whenComplete { result, throwable ->
+        commandGateway.send<String>(
+            RechargingMemberMoneyRequestCreateCommand(
+                aggregateIdentifier = memberMoneyJpaEntity.aggregateIdentifier!!,
+                rechargingRequestId = UUID.randomUUID().toString(),
+                membershipId = command.targetMembershipId,
+                amount = command.amount.toLong()
+            )
+        ).whenComplete{ result, throwable ->
             if (throwable != null) {
-                println("throwable : $throwable")
+                throwable.printStackTrace()
                 throw RuntimeException(throwable)
             } else {
                 println("result : $result")
-                increaseMoneyPort.increaseMoney(
-                    membershipId = command.targetMembershipId,
-                    moneyAmount = command.amount
-                )
             }
         }
+
+
+//        val axonCommand = IncreaseMemberMoneyCommand(
+//            aggregateIdentifier = memberMoneyJpaEntity.aggregateIdentifier!!,
+//            membershipId = command.targetMembershipId,
+//            amount = command.amount
+//        )
+//
+//        commandGateway.send<String>(axonCommand).whenComplete { result, throwable ->
+//            if (throwable != null) {
+//                println("throwable : $throwable")
+//                throw RuntimeException(throwable)
+//            } else {
+//                println("result : $result")
+//                increaseMoneyPort.increaseMoney(
+//                    membershipId = command.targetMembershipId,
+//                    moneyAmount = command.amount
+//                )
+//            }
+//        }
     }
 }

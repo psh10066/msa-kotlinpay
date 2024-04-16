@@ -41,7 +41,8 @@ class RequestFirmBankingService(
                 fromBankName = command.fromBankName,
                 fromBankAccountNumber = command.fromBankAccountNumber,
                 toBankName = command.toBankName,
-                toBankAccountNumber = command.toBankAccountNumber
+                toBankAccountNumber = command.toBankAccountNumber,
+                amount = command.moneyAmount
             )
         )
 
@@ -86,7 +87,8 @@ class RequestFirmBankingService(
                         fromBankName = command.fromBankName,
                         fromBankAccountNumber = command.fromBankAccountNumber,
                         toBankName = command.toBankName,
-                        toBankAccountNumber = command.toBankAccountNumber
+                        toBankAccountNumber = command.toBankAccountNumber,
+                        amount = command.moneyAmount
                     )
                 )
 
