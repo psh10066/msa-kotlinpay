@@ -4,7 +4,14 @@ import com.psh10066.banking.adapter.axon.command.CreateFirmBankingRequestCommand
 import com.psh10066.banking.adapter.axon.command.UpdateFirmBankingRequestCommand
 import com.psh10066.banking.adapter.axon.event.FirmBankingRequestCreatedEvent
 import com.psh10066.banking.adapter.axon.event.FirmBankingRequestUpdatedEvent
+import com.psh10066.banking.adapter.out.external.bank.ExternalFirmBankingRequest
 import com.psh10066.banking.adapter.out.persistence.FirmBankingStatus
+import com.psh10066.banking.application.port.out.RequestExternalFirmBankingPort
+import com.psh10066.banking.application.port.out.RequestFirmBankingPort
+import com.psh10066.common.event.RequestFirmBankingCommand
+import com.psh10066.common.event.RequestFirmBankingFinishedEvent
+import com.psh10066.common.event.RollbackFirmBankingFinishedEvent
+import com.psh10066.common.event.RollbackFirmBankingRequestCommand
 import com.psh10066.common.type.BankName
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
@@ -75,5 +82,92 @@ data class FirmBankingRequestAggregate(
     fun on(event: FirmBankingRequestUpdatedEvent) {
         println("FirmBankingRequestUpdatedEvent Sourcing Handler")
         firmBankingStatus = event.firmBankingStatus
+    }
+
+    @CommandHandler
+    constructor(
+        command: RequestFirmBankingCommand,
+        firmBankingPort: RequestFirmBankingPort,
+        externalFirmBankingPort: RequestExternalFirmBankingPort
+    ) : this() {
+        println("RequestFirmBankingCommand Handler")
+        id = command.aggregateIdentifier
+
+        firmBankingPort.createFirmBankingRequest(
+            fromBankName = command.fromBankName,
+            fromBankAccountNumber = command.fromBankAccountNumber,
+            toBankName = command.toBankName,
+            toBankAccountNumber = command.toBankAccountNumber,
+            moneyAmount = command.moneyAmount,
+            firmBankingStatus = FirmBankingStatus.SUCCESS,
+            aggregateIdentifier = id!!
+        )
+
+        val firmBankingResult = externalFirmBankingPort.requestExternalFirmBanking(
+            ExternalFirmBankingRequest(
+                fromBankName = command.fromBankName,
+                fromBankAccountNumber = command.fromBankAccountNumber,
+                toBankName = command.toBankName,
+                toBankAccountNumber = command.toBankAccountNumber,
+                amount = command.moneyAmount,
+            )
+        )
+
+        val resultCode = firmBankingResult.resultCode
+
+        AggregateLifecycle.apply(
+            RequestFirmBankingFinishedEvent(
+                requestFirmBankingId = command.requestFirmBankingId,
+                rechargingRequestId = command.rechargeRequestId,
+                membershipId = command.membershipId,
+                fromBankName = command.fromBankName,
+                fromBankAccountNumber = command.fromBankAccountNumber,
+                toBankName = command.toBankName,
+                toBankAccountNumber = command.toBankAccountNumber,
+                moneyAmount = command.moneyAmount,
+                status = resultCode,
+                requestFirmBankingAggregateIdentifier = id!!
+            )
+        )
+    }
+
+    @CommandHandler
+    constructor(
+        command: RollbackFirmBankingRequestCommand,
+        firmBankingPort: RequestFirmBankingPort,
+        externalFirmBankingPort: RequestExternalFirmBankingPort
+    ) : this() {
+        println("RollbackFirmBankingRequestCommand Handler")
+        id = UUID.randomUUID().toString()
+
+        firmBankingPort.createFirmBankingRequest(
+            fromBankName = command.fromBankName,
+            fromBankAccountNumber = command.fromBankAccountNumber,
+            toBankName = command.toBankName,
+            toBankAccountNumber = command.toBankAccountNumber,
+            moneyAmount = command.amount,
+            firmBankingStatus = FirmBankingStatus.SUCCESS,
+            aggregateIdentifier = id!!
+        )
+
+        val firmBankingResult = externalFirmBankingPort.requestExternalFirmBanking(
+            ExternalFirmBankingRequest(
+                fromBankName = command.fromBankName,
+                fromBankAccountNumber = command.fromBankAccountNumber,
+                toBankName = command.toBankName,
+                toBankAccountNumber = command.toBankAccountNumber,
+                amount = command.amount
+            )
+        )
+
+        val resultCode = firmBankingResult.resultCode
+
+        AggregateLifecycle.apply(
+            RollbackFirmBankingFinishedEvent(
+                rollbackFirmBankingId = command.rollbackFirmBankingId,
+                membershipId = command.membershipId,
+                rollbackFirmBankingAggregateIdentifier = id!!
+            )
+        )
     }
 }

@@ -17,5 +17,5 @@ interface IncreaseMoneyPort {
     fun increaseMoney(
         membershipId: Long,
         moneyAmount: Int
-    ): MemberMoneyJpaEntity
+    ): MemberMoneyJpaEntity?
 }

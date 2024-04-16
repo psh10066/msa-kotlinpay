@@ -36,7 +36,7 @@ class MoneyChangingRequestPersistenceAdapter(
     override fun increaseMoney(
         membershipId: Long,
         moneyAmount: Int
-    ): MemberMoneyJpaEntity {
+    ): MemberMoneyJpaEntity? {
         val entity = memberMoneyRepository.findByMembershipId(membershipId)
             ?: memberMoneyRepository.save(
                 MemberMoneyJpaEntity(

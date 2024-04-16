@@ -9,6 +9,7 @@ interface RegisterBankAccountPort {
         membershipId: Long,
         bankName: BankName,
         bankAccountNumber: String,
-        linkedStatusIsValid: Boolean
+        linkedStatusIsValid: Boolean,
+        aggregateIdentifier: String
     ): RegisteredBankAccountJpaEntity
 }

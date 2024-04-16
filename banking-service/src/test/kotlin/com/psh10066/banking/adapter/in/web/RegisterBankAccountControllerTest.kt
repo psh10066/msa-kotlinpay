@@ -35,7 +35,8 @@ class RegisterBankAccountControllerTest {
             membershipId = 1,
             bankName = BankName.국민은행,
             bankAccountNumber = "accountNumber",
-            linkedStatusIsValid = true
+            linkedStatusIsValid = true,
+            aggregateIdentifier = ""
         )
 
         mockMvc.perform(

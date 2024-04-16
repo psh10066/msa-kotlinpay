@@ -2,8 +2,11 @@ package com.psh10066.money.adapter.axon.aggregate
 
 import com.psh10066.money.adapter.axon.command.IncreaseMemberMoneyCommand
 import com.psh10066.money.adapter.axon.command.MemberMoneyCreatedCommand
+import com.psh10066.money.adapter.axon.command.RechargingMemberMoneyRequestCreateCommand
 import com.psh10066.money.adapter.axon.event.IncreaseMemberMoneyEvent
 import com.psh10066.money.adapter.axon.event.MemberMoneyCreatedEvent
+import com.psh10066.money.adapter.axon.event.RechargingRequestCreatedEvent
+import com.psh10066.money.application.port.out.GetRegisteredBankAccountPort
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateCreationPolicy
@@ -59,5 +62,30 @@ data class MemberMoneyAggregate(
         id = event.aggregateIdentifier
         membershipId = event.targetMembershipId
         balance = event.amount
+    }
+
+    // https://discuss.axoniq.io/t/no-handler-registered-for-the-command/5338
+    @CommandHandler
+    @CreationPolicy(AggregateCreationPolicy.CREATE_IF_MISSING)
+    fun handler(
+        command: RechargingMemberMoneyRequestCreateCommand,
+        getRegisteredBankAccountPort: GetRegisteredBankAccountPort
+    ) {
+        println("RechargingMemberMoneyRequestCreateCommand Handler")
+        id = command.aggregateIdentifier
+
+        val registeredBankAccountAggregateIdentifier = getRegisteredBankAccountPort.getRegisteredBankAccount(membershipId = command.membershipId)
+
+        // Saga Start
+        AggregateLifecycle.apply(
+            RechargingRequestCreatedEvent(
+                rechargingRequestId = command.rechargingRequestId,
+                membershipId = command.membershipId,
+                amount = command.amount,
+                registeredBankAccountAggregateIdentifier = registeredBankAccountAggregateIdentifier.aggregateIdentifier,
+                bankName = registeredBankAccountAggregateIdentifier.bankName,
+                bankAccountNumber = registeredBankAccountAggregateIdentifier.bankAccountNumber
+            )
+        )
     }
 }
